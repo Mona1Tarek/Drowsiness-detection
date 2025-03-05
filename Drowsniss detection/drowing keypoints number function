@@ -1,0 +1,22 @@
+def process_frame(self, image, eye_keypoints):
+        if not eye_keypoints["left_eye"] or not eye_keypoints["right_eye"]:
+            print("❌ Error: No eye keypoints detected! Skipping frame.")
+            return image  
+
+        left_eye = eye_keypoints["left_eye"]
+        right_eye = eye_keypoints["right_eye"]
+
+        # Draw left eye keypoints
+        for i, (x, y) in enumerate(left_eye):
+            cv2.circle(image, (x, y), 3, (0, 255, 0), -1)  # Green dots
+            cv2.putText(image, str(i), (x, y - 5), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 255, 0), 1)
+
+        # Draw right eye keypoints
+        for i, (x, y) in enumerate(right_eye):
+            cv2.circle(image, (x, y), 3, (255, 0, 0), -1)  # Blue dots
+            cv2.putText(image, str(i), (x, y - 5), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (255, 0, 0), 1)
+
+        print("👁️ Left Eye Keypoints:", left_eye)
+        print("👁️ Right Eye Keypoints:", right_eye)
+
+        return image
